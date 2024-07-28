@@ -4,12 +4,13 @@ from transformers import AutoTokenizer, AutoModel
 from sentence_transformers import SentenceTransformer, util
 from flask_cors import CORS
 
+
 app = Flask(__name__)
 CORS(app)
 
 
 # Load candidate dataset
-candidate_data3 = pd.read_csv(r'D:\ML\assignments\video\data\candidates.csv')
+candidate_data3 = pd.read_csv('../data/candidates.csv')
 
 # Load pre-trained sentence transformer model
 model = SentenceTransformer('all-MiniLM-L6-v2')
@@ -21,7 +22,7 @@ def preprocess(text):
 candidate_data3['skills_processed'] = candidate_data3['Job Skills'].apply(preprocess)
 
 # Function to find top matching candidates
-def find_top_candidates(job_description, candidate_data, top_n=5):
+def find_top_candidates(job_description, candidate_data, top_n=10):
     model = SentenceTransformer('all-MiniLM-L6-v2')
     job_description_processed = preprocess(job_description)
     job_description_embedding = model.encode(job_description_processed, convert_to_tensor=True)
@@ -33,7 +34,7 @@ def find_top_candidates(job_description, candidate_data, top_n=5):
 
     return top_candidates
 
-@app.route('/api/query', methods=['POST'])
+@app.route('/match', methods=['POST'])
 def query():
     data = request.json
     job_description = data.get('job_description', '')
