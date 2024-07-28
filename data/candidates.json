@@ -1,0 +1,14 @@
+[
+    {
+        "name": "John Doe",
+        "skills": ["HTML", "CSS", "JavaScript", "React"],
+        "experience": 5,
+        "education": "BSc Computer Science"
+    },
+    {
+        "name": "Jane Smith",
+        "skills": ["Angular", "TypeScript", "HTML", "CSS"],
+        "experience": 4,
+        "education": "MSc Software Engineering"
+    }
+]
